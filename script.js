@@ -25,6 +25,12 @@ const createCard = function(cat, parent) {
 	const name = document.createElement("h3");
 	name.innerText = cat.name;
 
+	let like = "";
+	like.onclick = () => {
+		//....
+		// cat.id
+	}
+
 	card.append(img, name);
 	parent.append(card);
 }
@@ -68,6 +74,7 @@ const addCat = function() {
 	})
 		.then(res => res.json())
 		.then(data => {
+			console.log(data);
 			if (data.message === "ok") {
 				createCard(cat, container);
 			}
