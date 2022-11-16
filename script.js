@@ -30,7 +30,8 @@ const createCard = function(cat, parent) {
 }
 
 
-// createCard({name: "Вася", img_link: "https://www.friendforpet.ru/api/sites/default/files/2022-01/%D0%BB%D0%B5%D0%B2%D0%B83_%D0%B0%D0%BB%D0%B5%D0%BA%D1%81.jpg"}, container);
+createCard({name: "Вася", img_link: ""}, container);
+createCard({name: "Вася", img_link: "https://www.friendforpet.ru/api/sites/default/files/2022-01/%D0%BB%D0%B5%D0%B2%D0%B83_%D0%B0%D0%BB%D0%B5%D0%BA%D1%81.jpg"}, container);
 
 // запрос на сервер
 fetch("https://sb-cats.herokuapp.com/api/2/fe8/show") 
@@ -47,6 +48,36 @@ fetch("https://sb-cats.herokuapp.com/api/2/fe8/show")
 		}
 	})
 
+
+const cat = {
+	id: 6,
+	name: "Василий",
+	img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
+}
+
+// JSON.stringify(obj) - сделает из объекта строку
+// JSON.parse(str) - сделает из строки объект (если внутри строки объек)
+
+const addCat = function() {
+	fetch("https://sb-cats.herokuapp.com/api/2/fe8/add", {
+		method: "POST",
+		headers: { // обязательно для POST/PUT/PATCH
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(cat) // обязательно для POST/PUT/PATCH
+	})
+		.then(res => res.json())
+		.then(data => {
+			if (data.message === "ok") {
+				createCard(cat, container);
+			}
+		})
+}
+
+document.querySelector("#add").addEventListener("click", function(e) {
+	e.preventDefault();
+	addCat();
+})
 
 
 
