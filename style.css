@@ -29,3 +29,36 @@ header {
 footer {
 	justify-content: center;
 }
+
+h1, h2, h3 {
+	margin: 0;
+}
+
+main {
+	padding: 0 30px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-content: flex-start;
+	gap: 30px;
+}
+.card {
+	display: flex;
+	flex-direction: column;
+	gap:  20px;
+	padding: 10px;
+	border:  1px solid;
+}
+.card-pic {
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #dedede;
+	height: 180px;
+}
+.card h3 {
+	text-align: center;
+}
+
+
+
+
