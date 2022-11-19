@@ -67,9 +67,12 @@ main {
 	bottom:  0;
 	background-color: #0008;
 	backdrop-filter: blur(1px);
-	display: flex;
 	justify-content: center;
 	align-items: center;
+	display:  none;
+}
+.popup-wrapper.active {
+	display: flex;
 }
 
 .popup {
