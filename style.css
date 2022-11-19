@@ -102,7 +102,7 @@ main {
 	content: "\26CC";
 }
 
-#add {
+#addForm {
 	display: grid;
 	gap:  20px;
 }

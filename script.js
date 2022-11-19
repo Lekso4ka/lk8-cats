@@ -93,10 +93,13 @@ document.querySelector("#add").addEventListener("click", function(e) {
 	popupBlock.classList.add("active");
 });
 
+const addForm = document.forms.addForm;
 
-
-
-
+addForm.addEventListener("submit", function(e) {
+	e.preventDefault();
+	let body = {}; 
+	console.log("Hey!");
+});
 
 
 
