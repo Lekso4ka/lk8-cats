@@ -59,6 +59,50 @@ main {
 	text-align: center;
 }
 
+.popup-wrapper {
+	position: fixed;
+	top:  0;
+	left:  0;
+	right:  0;
+	bottom:  0;
+	background-color: #0008;
+	backdrop-filter: blur(1px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup {
+	width: 300px;
+	padding: 20px;
+	background-color: #fff;
+	position: relative;
+}
+.popup__close {
+	width: 30px;
+	height: 30px;
+	border: 1px solid;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor:  pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.popup__close:hover {
+	background-color: #222;
+	color:  #fff;
+	border-color: #222;
+}
+.popup__close::after {
+	content: "\26CC";
+}
+
+
+
+
+
 
 
 
