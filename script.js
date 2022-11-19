@@ -1,5 +1,16 @@
 const container = document.querySelector("main");
+const popupBlock = document.querySelector(".popup-wrapper");
 
+popupBlock.querySelector(".popup__close").addEventListener("click", function() {
+	popupBlock.classList.remove("active");
+});
+
+document.querySelector("#add").addEventListener("click", function(e) {
+	e.preventDefault();
+	popupBlock.classList.add("active");
+});
+
+const addForm = document.forms.addForm;
 /*
 	{
 		id, name, rate, age, 
@@ -55,16 +66,16 @@ fetch("https://sb-cats.herokuapp.com/api/2/fe8/show")
 	})
 
 
-const cat = {
-	id: 6,
-	name: "Василий",
-	img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
-}
+// const cat = {
+// 	id: 6,
+// 	name: "Василий",
+// 	img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
+// }
 
 // JSON.stringify(obj) - сделает из объекта строку
 // JSON.parse(str) - сделает из строки объект (если внутри строки объек)
 
-const addCat = function() {
+const addCat = function(cat) {
 	fetch("https://sb-cats.herokuapp.com/api/2/fe8/add", {
 		method: "POST",
 		headers: { // обязательно для POST/PUT/PATCH
@@ -77,23 +88,14 @@ const addCat = function() {
 			console.log(data);
 			if (data.message === "ok") {
 				createCard(cat, container);
+				addForm.reset();
+				popupBlock.classList.remove("active");
 			}
 		})
 }
 
 
-const popupBlock = document.querySelector(".popup-wrapper");
 
-popupBlock.querySelector(".popup__close").addEventListener("click", function() {
-	popupBlock.classList.remove("active");
-});
-
-document.querySelector("#add").addEventListener("click", function(e) {
-	e.preventDefault();
-	popupBlock.classList.add("active");
-});
-
-const addForm = document.forms.addForm;
 
 addForm.addEventListener("submit", function(e) {
 	e.preventDefault();
@@ -103,11 +105,12 @@ addForm.addEventListener("submit", function(e) {
 		let el = addForm.elements[i];
 		console.log(el);
 		if (el.name) {
-			body[el.name] = el.name === "favourite" ? el.checked : el.value
+			body[el.name] = el.name === "favourite" ? el.checked : el.value;
 		}
 	}
 
 	console.log(body);
+	addCat(body);
 });
 
 
