@@ -98,7 +98,16 @@ const addForm = document.forms.addForm;
 addForm.addEventListener("submit", function(e) {
 	e.preventDefault();
 	let body = {}; 
-	console.log("Hey!");
+
+	for (let i = 0; i < addForm.elements.length; i++) {
+		let el = addForm.elements[i];
+		console.log(el);
+		if (el.name) {
+			body[el.name] = el.name === "favourite" ? el.checked : el.value
+		}
+	}
+
+	console.log(body);
 });
 
 
