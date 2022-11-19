@@ -1,6 +1,12 @@
 const container = document.querySelector("main");
 const popupBlock = document.querySelector(".popup-wrapper");
 
+let user = localStorage.getItem("catUser");
+if (!user) {
+	user = prompt("Представьтесь, пожалуйста")
+	localStorage.setItem("catUser", user);
+}
+
 popupBlock.querySelector(".popup__close").addEventListener("click", function() {
 	popupBlock.classList.remove("active");
 });
@@ -59,7 +65,7 @@ createCard({name: "Вася", img_link: ""}, container);
 createCard({name: "Вася", img_link: "https://www.friendforpet.ru/api/sites/default/files/2022-01/%D0%BB%D0%B5%D0%B2%D0%B83_%D0%B0%D0%BB%D0%B5%D0%BA%D1%81.jpg"}, container);
 
 // запрос на сервер
-fetch("https://sb-cats.herokuapp.com/api/2/fe8/show") 
+fetch(`https://sb-cats.herokuapp.com/api/2/${user}/show`) 
 	// ответ от сервера что такой запрос существует
 	.then(res => res.json()) 
 	// получение результата
@@ -84,7 +90,7 @@ fetch("https://sb-cats.herokuapp.com/api/2/fe8/show")
 // JSON.parse(str) - сделает из строки объект (если внутри строки объек)
 
 const addCat = function(cat) {
-	fetch("https://sb-cats.herokuapp.com/api/2/fe8/add", {
+	fetch(`https://sb-cats.herokuapp.com/api/2/${user}/add`, {
 		method: "POST",
 		headers: { // обязательно для POST/PUT/PATCH
 			"Content-Type": "application/json"
@@ -102,17 +108,30 @@ const addCat = function(cat) {
 		})
 }
 
-const deleteCat = function(id, tag) {
-	fetch(`https://sb-cats.herokuapp.com/api/2/fe8/delete/${id}`, {
+const deleteCat = async function(id, tag) {
+	/*
+		fetch(`https://sb-cats.herokuapp.com/api/2/fe8/delete/${id}`, {
+			method: "DELETE"
+		})
+		.then(res => res.json())
+		.then(data => {
+			console.log(data);
+			if (data.message === "ok") {
+				tag.remove();
+			}
+		})
+	*/
+	let res = await fetch(`https://sb-cats.herokuapp.com/api/2/${user}/delete/${id}`, {
 		method: "DELETE"
-	})
-	.then(res => res.json())
-	.then(data => {
-		console.log(data);
-		if (data.message === "ok") {
-			tag.remove();
-		}
-	})
+	});
+
+	let data = await res.json();
+	
+	if (data.message === "ok") {
+		tag.remove();
+	}
+
+
 }
 
 
