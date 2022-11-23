@@ -4,6 +4,7 @@ const popupAdd = popupBlock.querySelector(".popup-add");
 const popupUpd = popupBlock.querySelector(".popup-upd");
 const addForm = document.forms.addForm;
 const updForm = document.forms.updForm;
+const cards = document.getElementsByClassName("card");
 
 let user = localStorage.getItem("catUser");
 if (!user) {
@@ -27,18 +28,10 @@ document.querySelector("#add").addEventListener("click", function(e) {
 	popupAdd.classList.add("active");
 });
 
-
-/*
-	{
-		id, name, rate, age, 
-		img_link, description, 
-		favourite
-	}
-*/
-
 const createCard = function(cat, parent) {
 	const card = document.createElement("div");
 	card.className = "card";
+	card.dataset.id = cat.id; // <dic class="card" data-id="2">...</div>
 
 	const img = document.createElement("div");
 	img.className = "card-pic";
@@ -211,6 +204,7 @@ const updCat = async function(obj, id) {
 	let answer = await res.json();
 	console.log(answer);
 	if (answer.message === "ok") {
+		updCard(obj, id);
 		updForm.reset();
 		updForm.dataset.id = "";
 		popupUpd.classList.remove("active");
@@ -218,8 +212,15 @@ const updCat = async function(obj, id) {
 	}
 }
 
-
-
+const updCard = function(data, id) {
+	for (let i = 0; i < cards.length; i++) {
+		let card = cards[i];
+		if (card.dataset.id === id) {
+			card.firstElementChild.style.backgroundImage = data.img_link ? `url(${data.img_link})` : `url(img/cat.png)`;
+			card.querySelector("h3").innerText = data.name || "noname";
+		}
+	}
+}
 
 
 
