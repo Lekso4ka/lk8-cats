@@ -185,8 +185,38 @@ addForm.addEventListener("submit", function(e) {
 	addCat(body);
 });
 
+updForm.addEventListener("submit", function(e) {
+	e.preventDefault();
+	let body = {}; 
 
+	for (let i = 0; i < this.elements.length; i++) {
+		let el = this.elements[i];
+		if (el.name) {
+			body[el.name] = el.name === "favourite" ? el.checked : el.value;
+		}
+	}
+	delete body.id;
+	console.log(body);
+	updCat(body, updForm.dataset.id);
+});
 
+const updCat = async function(obj, id) {
+	let res = await fetch(`https://sb-cats.herokuapp.com/api/2/${user}/update/${id}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(obj)
+	})
+	let answer = await res.json();
+	console.log(answer);
+	if (answer.message === "ok") {
+		updForm.reset();
+		updForm.dataset.id = "";
+		popupUpd.classList.remove("active");
+		popupBlock.classList.remove("active");
+	}
+}
 
 
 
