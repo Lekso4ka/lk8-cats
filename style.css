@@ -80,6 +80,10 @@ main {
 	padding: 20px;
 	background-color: #fff;
 	position: relative;
+	display: none;
+}
+.popup.active {
+	display: block;
 }
 .popup__close {
 	width: 30px;
@@ -102,7 +106,7 @@ main {
 	content: "\26CC";
 }
 
-#addForm {
+form {
 	display: grid;
 	gap:  20px;
 }

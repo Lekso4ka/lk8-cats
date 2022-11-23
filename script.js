@@ -1,5 +1,9 @@
 const container = document.querySelector("main");
 const popupBlock = document.querySelector(".popup-wrapper");
+const popupAdd = popupBlock.querySelector(".popup-add");
+const popupUpd = popupBlock.querySelector(".popup-upd");
+const addForm = document.forms.addForm;
+const updForm = document.forms.updForm;
 
 let user = localStorage.getItem("catUser");
 if (!user) {
@@ -7,16 +11,23 @@ if (!user) {
 	localStorage.setItem("catUser", user);
 }
 
-popupBlock.querySelector(".popup__close").addEventListener("click", function() {
-	popupBlock.classList.remove("active");
+popupBlock.querySelectorAll(".popup__close").forEach(function(btn) {
+	btn.addEventListener("click", function() {
+		popupBlock.classList.remove("active");
+		btn.parentElement.classList.remove("active");
+		if (btn.parentElement.classList.contains("popup-upd")) {
+			updForm.dataset.id = ""; // updForm.setAttribute("data-id", "");
+		}
+	});
 });
 
 document.querySelector("#add").addEventListener("click", function(e) {
 	e.preventDefault();
 	popupBlock.classList.add("active");
+	popupAdd.classList.add("active");
 });
 
-const addForm = document.forms.addForm;
+
 /*
 	{
 		id, name, rate, age, 
@@ -56,8 +67,31 @@ const createCard = function(cat, parent) {
 		deleteCat(id, card);
 	});
 
-	card.append(img, name, del);
+	const upd = document.createElement("button");
+	upd.innerText = "update";
+	upd.addEventListener("click", function(e) {
+		popupUpd.classList.add("active");
+		popupBlock.classList.add("active");
+		showForm(cat);
+		updForm.setAttribute("data-id", cat.id);
+	})
+
+	card.append(img, name, del, upd);
 	parent.append(card);
+}
+
+const showForm = function(data) {
+	console.log(data);
+	for (let i = 0; i < updForm.elements.length; i++) {
+		let el = updForm.elements[i];
+		if (el.name) {
+			if (el.type !== "checkbox") {
+				el.value = data[el.name] ? data[el.name] : "";
+			} else {
+				el.checked = data[el.name];
+			}
+		}
+	}
 }
 
 
