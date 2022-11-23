@@ -23,11 +23,30 @@
             <div class="popup__close"></div>
             <div class="popup__content"></div>
         </div> -->
-        <div class="popup">
+        <div class="popup popup-add">
             <div class="popup__close"></div>
             <div class="popup__content">
                 <form id="addForm">
                     <h2>Добавить котика</h2>
+                    <input type="text" name="name" placeholder="Имя котика" required>
+                    <input type="number" name="id" placeholder="id" required>
+                    <input type="text" name="img_link" placeholder="Ссылка на картинку">
+                    <input type="number" name="age" placeholder="Возраст" min="0">
+                    <input type="number" name="rate" placeholder="Рейтинг" min="0" max="10"> 
+                    <label for="fav">
+                        <input type="checkbox" name="favourite">
+                        Любимчик
+                    </label>
+                    <textarea name="description" placeholder="Описание"></textarea>
+                    <button type="submit">Добавить</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup popup-upd">
+            <div class="popup__close"></div>
+            <div class="popup__content">
+                <form id="updForm">
+                    <h2>Изменить котика</h2>
                     <input type="text" name="name" placeholder="Имя котика" required>
                     <input type="number" name="id" placeholder="id" required>
                     <input type="text" name="img_link" placeholder="Ссылка на картинку">
