@@ -6,6 +6,10 @@ const addForm = document.forms.addForm;
 const updForm = document.forms.updForm;
 const cards = document.getElementsByClassName("card");
 
+document.getElementById("user").addEventListener("click", function() {
+	localStorage.removeItem("catUser");
+});
+
 let user = localStorage.getItem("catUser");
 if (!user) {
 	user = prompt("Представьтесь, пожалуйста")

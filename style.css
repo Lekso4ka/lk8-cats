@@ -23,6 +23,10 @@ header, footer {
 	display: flex;
 	align-items: center;
 }
+nav {
+	display: flex;
+	gap: 20px;
+}
 header {
 	justify-content: space-between;
 }
